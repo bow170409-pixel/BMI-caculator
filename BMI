@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BMI Calculator</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2d6c2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #ffffff;
+    width: 440px;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.formula {
+    background: #f7f7f7;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.input-group span {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #d88b6f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #c97a5f;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background: #f0b9a1;
+}
+
+.result {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.result h2 {
+    margin: 6px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>BMI Calculator</h1>
+    <div class="subtitle">Do you know your BMI?</div>
+
+    <div class="section formula">
+        <strong>BMI Formula</strong><br>
+        BMI = weight (kg) ÷ height² (m)
+    </div>
+
+    <div class="section">
+        <div class="input-group">
+            <span>🏋️</span>
+            <input type="number" id="weight" placeholder="Weight (kg)">
+        </div>
+
+        <div class="input-group">
+            <span>📏</span>
+            <input type="number" id="height" step="0.01" placeholder="Height (m)">
+        </div>
+
+        <button onclick="calculateBMI()">Calculate BMI</button>
+    </div>
+
+    <div class="section">
+        <strong>BMI Classification</strong>
+        <table>
+            <tr>
+                <th>BMI Range</th>
+                <th>Category</th>
+            </tr>
+            <tr>
+                <td>&lt; 18.5</td>
+                <td>Underweight</td>
+            </tr>
+            <tr>
+                <td>18.5 – 24.9</td>
+                <td>Normal</td>
+            </tr>
+            <tr>
+                <td>25 – 29.9</td>
+                <td>Overweight</td>
+            </tr>
+            <tr>
+                <td>30 – 34.9</td>
+                <td>Obesity Class I</td>
+            </tr>
+            <tr>
+                <td>35 – 39.9</td>
+                <td>Obesity Class II</td>
+            </tr>
+            <tr>
+                <td>≥ 40</td>
+                <td>Obesity Class III</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculateBMI() {
+    const weight = parseFloat(document.getElementById("weight").value);
+    const height = parseFloat(document.getElementById("height").value);
+    const result = document.getElementById("result");
+
+    if (!weight || !height) {
+        result.innerHTML = "<p>Please enter valid values.</p>";
+        return;
+    }
+
+    const bmi = (weight / (height * height)).toFixed(1);
+    let status = "";
+
+    if (bmi < 18.5) {
+        status = "Underweight";
+    } else if (bmi < 25) {
+        status = "Normal";
+    } else if (bmi < 30) {
+        status = "Overweight";
+    } else if (bmi < 35) {
+        status = "Obesity Class I";
+    } else if (bmi < 40) {
+        status = "Obesity Class II";
+    } else {
+        status = "Obesity Class III";
+    }
+
+    result.innerHTML = `
+        <h3>Your BMI is ${bmi}</h3>
+        <h2>You are <strong>${status}</strong></h2>
+    `;
+}
+</script>
+
+</body>
+</html>
